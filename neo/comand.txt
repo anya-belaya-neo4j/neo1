@@ -1,0 +1,26 @@
+// create grade
+create (g:Grade {value:0})return g
+
+//  subject
+$create (s:Subject {name:'Math'})return s
+
+//  Diary
+create (d:Diary  )return d
+
+// student
+create (s:Student {name:'Bob', level:1 })return s
+
+
+
+ добавить связь
+MATCH (st:Student  { name:"Bob" })
+MATCH (su:Subject  { name:"Math" })
+CREATE (st)-[l:LEARN_SUBJECT { level: 1 }]->(su)
+RETURN st, su
+
+
+CLEAR  alll
+
+    stopping your Neo4j database
+    deleting everything matching data/graph.db/* (look inside the graph.db folder)
+    starting up again.

@@ -1,0 +1,32 @@
+match (n) return (n)
+MATCH (n) DETACH DELETE n
+ create
+  (sb:Student {name:'Bob',  level:1, room:"a1" }),
+  (sm:Student {name:'Mary', level:1, room:"a2" }),
+  (s1:Subject {name:'Math'}),
+  (s2:Subject {name:'Eng'}),
+  (g:Grade {name:"Grade", value:8,subject:"Math"}),
+  (g)-[:MATH_GRADE]->(sb),  
+  (sb)-[:LEARN_SUBJECT]->(s1),
+  (sb)-[:LEARN_SUBJECT]->(s2),
+  (sm)-[:LEARN_SUBJECT]->(s2)
+
+
+// select gradebook
+MATCH (gm:Grade)<-[:ENG_GRADE]-(GradeBook)<-[:HAVE_GREADEBOOK]- (Student {name:'Mary'})
+    return gm
+
+ // select  grades 
+ MATCH  (s:Student {name:"Bob" }),
+      (g:Grade {subject:"Math" })
+
+ return last(g:value)
+
+MERGE (gnew)-[:MATH_GRADE]->(s)  
+// add grade eng
+ MATCH (s:Student {name:"Bob" })
+create (gnew:Grade {name:"Grade", value:12,subject:"End"})
+
+MERGE (gnew)-[:ENG_GRADE]->(s)  
+
+

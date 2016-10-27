@@ -1,0 +1,97 @@
+match (n) return (n)
+MATCH (n) DETACH DELETE n
+ create
+  (sb:Student {name:'Bob',  level:1, room:"a1" }),
+  (sm:Student {name:'Mary', level:1, room:"a2" }),
+  (s1:Subject {name:'Math'}),
+  (s2:Subject {name:'Eng'}),
+  (gb1:GradeBook {name:"GradeBook",owner:"Bob"}),
+  (gb2:GradeBook {name:"GradeBook",owner:"Mary"}),
+  (sb)-[:LEARN_SUBJECT]->(s1),
+  (sb)-[:LEARN_SUBJECT]->(s2),
+  (sm)-[:LEARN_SUBJECT]->(s2),
+  (sb)-[:HAVE_GREADEBOOK]->(gb1),
+  (sm)-[:HAVE_GREADEBOOK]->(gb2)
+
+
+MATCH (gm:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Bob'})
+create
+  (g1:Grade {name:"Grade", value:11,subject:"Math"}),
+  (gm)-[:ENG_GRADE]->(g1)
+
+
+MATCH (gm:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Mary'})
+      (gb:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Bob'})
+create
+  (g1:Grade {name:"Grade", value:11,subject:"Math"}),
+  (gm)-[:ENG_GRADE]->(g1)
+  
+
+
+
+// add grade
+MATCH (gm:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Mary'}),
+      (gb:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Bob'})
+create
+  (g1:Grade {name:"Grade", value:11,subject:"Math"}),
+  (g2:Grade {name:"Grade", value:10,subject:"Math"}),
+  (g3:Grade {name:"Grade", value:8,subject:"Eng"}),
+  (g4:Grade {name:"Grade", value:2,subject:"Eng"}),
+  (g5:Grade {name:"Grade", value:6,subject:"Eng"}),
+  (g6:Grade {name:"Grade", value:7,subject:"Math"}),
+  (gm)-[:ENG_GRADE]->(g3),
+  (gm)-[:ENG_GRADE]->(g4),
+  (gb)-[:ENG_GRADE]->(g5),
+  (gb)-[:MATH_GRADE]->(g1),
+  (gb)-[:MATH_GRADE]->(g2),
+  (gb)-[:MATH_GRADE]->(g3) 
+
+
+
+
+
+// add grade
+MATCH (gm:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Mary'})
+      (gb:GradeBook)<-[:HAVE_GREADEBOOK]-(Student {name:'Bob'})
+create
+  (g1:Grade {name:"Grade", value:11,subject:"Math"}),
+  (g2:Grade {name:"Grade", value:10,subject:"Math"}),
+  (g3:Grade {name:"Grade", value:8,subject:"Eng"}),
+  (g4:Grade {name:"Grade", value:2,subject:"Eng"}),
+  (g5:Grade {name:"Grade", value:6,subject:"Eng"}),
+  (g6:Grade {name:"Grade", value:7,subject:"Math"})
+MERGE (gm)-[:ENG_GRADE]->(g3)
+,(gm)-[:ENG_GRADE]->(g4),(gb)-[:ENG_GRADE]->(g5),(gb)-[:MATH_GRADE]->(g1),(gb)-[:MATH_GRADE]->(g2),(gb)-[:MATH_GRADE]->(g3) 
+
+
+
+
+ // add grade
+ MATCH (s:Student {name:"Bob" }),
+      (g:Grade {subject:"Math" })
+create (gnew:Grade {name:"Grade", value:5,subject:"Math"})
+
+MERGE (gnew)-[:MATH_GRADE]->(s)  
+// add grade eng
+ MATCH (s:Student {name:"Bob" })
+create (gnew:Grade {name:"Grade", value:12,subject:"End"})
+
+MERGE (gnew)-[:ENG_GRADE]->(s)  
+
+
+
+ match (n) return (n)
+
+
+  (g:Grade {name:"Grade", value:8,subject:"Math"}),
+  
+
+
+
+  (g:Grade {name:"Grade", value:8,subject:"Math"}),
+  (s:Subject {name:'Math'}),
+  (d:Diary {name:"Diary"}),
+
+ (st)-[:LEARN_SUBJECT]->(s),
+ (st)-[:HAVE_DIARY]->(d),
+ (d)-[:HAVE_GRADE {date:'26.10.2016'}]->(g)

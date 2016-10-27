@@ -1,0 +1,143 @@
+// create daybook
+
+MATCH (g:Student)
+MERGE (g)-[:HAVE_DAYBOOK]-(:DayBook {name:"DayBook",owner:g.name})
+
+
+// add subject to students
+MATCH (g:Student),(m1:Subject{name:"eng"}),
+(m2:Subject{name:"math"}),
+(m3:Subject{name:"art"}),
+(m4:Subject{name:"geo"}),
+(m5:Subject{name:"sing"}),
+(m6:Subject{name:"lit"}),
+(m7:Subject{name:"stat"})
+MERGE (g)-[:LEARN_SUBJECT]->(m1)
+MERGE (g)-[:LEARN_SUBJECT]->(m2)
+MERGE (g)-[:LEARN_SUBJECT]->(m3)
+MERGE (g)-[:LEARN_SUBJECT]->(m4)
+MERGE (g)-[:LEARN_SUBJECT]->(m5)
+MERGE (g)-[:LEARN_SUBJECT]->(m6)
+MERGE (g)-[:LEARN_SUBJECT]->(m7)
+
+
+// add grade     *n
+MATCH (d:DayBook)
+MERGE (d)-[:MATH_GRADE]->(:Grade {value:round( rand()*10)})
+MERGE (d)-[:STAT_GRADE]->(:Grade {value:round( rand()*10)})
+MERGE (d)-[:SING_GRADE]->(:Grade {value:round( rand()*10)})
+MERGE (d)-[:ART_GRADE]->(:Grade {value:round( rand()*10)})
+MERGE (d)-[:LIT_GRADE]->(:Grade {value:round( rand()*10)})
+MERGE (d)-[:GEO_GRADE]->(:Grade {value:round( rand()*10)})
+MERGE (d)-[:ENG_GRADE]->(:Grade {value:round( rand()*10)})
+
+
+
+
+//      teacher to subjects  ok
+MATCH  
+(t1:Teacher {name:"Keanu Reeves"}),
+(t2:Teacher {name:"Jack Nicholson"}),
+(t3:Teacher {name:"Al Pacino"}),
+(t4:Teacher {name:"Carrie-Anne Moss"}),
+(t5:Teacher {name:"Laurence Fishburne"}),
+(t6:Teacher {name:"Hugo Weaving"}),
+(t7:Teacher {name:"Max von Sydow"}),
+(t8:Teacher {name:"J.T. Walsh"}),
+(t9:Teacher {name:"Andy Wachowski"}),
+(t10:Teacher {name:"Lana Wachowski"}),
+(m1:Subject{name:"eng"}),
+(m2:Subject{name:"math"}),
+(m3:Subject{name:"art"}),
+(m4:Subject{name:"geo"}),
+(m5:Subject{name:"sing"}),
+(m6:Subject{name:"lit"}),
+(m7:Subject{name:"stat"})
+MERGE (t1)-[:STUDY_SUBJECT]->(m1)
+MERGE (t2)-[:STUDY_SUBJECT]->(m2)
+MERGE (t3)-[:STUDY_SUBJECT]->(m3)
+MERGE (t4)-[:STUDY_SUBJECT]->(m4)
+MERGE (t5)-[:STUDY_SUBJECT]->(m5)
+MERGE (t6)-[:STUDY_SUBJECT]->(m6)
+MERGE (t7)-[:STUDY_SUBJECT]->(m7)
+MERGE (t8)-[:STUDY_SUBJECT]->(m1)
+MERGE (t9)-[:STUDY_SUBJECT]->(m2)
+MERGE (t10)-[:STUDY_SUBJECT]->(m3)
+MERGE (t1)-[:STUDY_SUBJECT]->(m4)
+MERGE (t2)-[:STUDY_SUBJECT]->(m5)
+MERGE (t3)-[:STUDY_SUBJECT]->(m6)
+MERGE (t4)-[:STUDY_SUBJECT]->(m7)
+MERGE (t5)-[:STUDY_SUBJECT]->(m1)
+MERGE (t6)-[:STUDY_SUBJECT]->(m2)
+MERGE (t7)-[:STUDY_SUBJECT]->(m3)
+MERGE (t8)-[:STUDY_SUBJECT]->(m4)
+MERGE (t9)-[:STUDY_SUBJECT]->(m5)
+MERGE (t1)-[:STUDY_SUBJECT]->(m6)
+MERGE (t2)-[:STUDY_SUBJECT]->(m7)
+MERGE (t3)-[:STUDY_SUBJECT]->(m1)
+MERGE (t4)-[:STUDY_SUBJECT]->(m2)
+MERGE (t5)-[:STUDY_SUBJECT]->(m3)
+MERGE (t6)-[:STUDY_SUBJECT]->(m4)
+MERGE (t7)-[:STUDY_SUBJECT]->(m5)
+MERGE (t8)-[:STUDY_SUBJECT]->(m6)
+MERGE (t9)-[:STUDY_SUBJECT]->(m7)
+
+
+
+
+
+return t1,t10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MATCH (g:Teacher),(m2:Subject)
+
+FOREACH (value IN range(0, toInt( round( rand()*5)), 1) |
+ CREATE (dd:DEL)
+         )
+
+
+FOREACH (value IN coll |
+ CREATE (dd:DEL))
+
+
+
+
+
+
+rand 
+return round( rand()*10)
+
+
+return m1;
+
+MERGE (m:Subject {name:row.name})
+(m1:Subject{name:"eng"),
+(m2:Subject{name:"math"),
+(m3:Subject{name:"art"),
+(m4:Subject{name:"geo"),
+(m5:Subject{name:"sing"),
+(m6:Subject{name:"lit"),
+(m7:Subject{name:"stat")
+
+            

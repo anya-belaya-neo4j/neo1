@@ -1,0 +1,52 @@
+MATCH (n)
+DETACH DELETE n
+
+create (g:Grade {name:"Grade", value:0}),
+create (s:Subject {name:'Math'}),
+create (d:Diary {name:"Diary"}),
+create (st:Student {name:'Bob', level:1 })
+
+
+MATCH (st:Student  { name:"Bob" })
+MATCH (su:Subject  { name:"Math" })
+CREATE (st)-[l:LEARN_SUBJECT]->(su)
+RETURN st, su
+
+
+MATCH(n) return (n)
+
+
+
+//      TEMP AREA
+
+// clear rel
+MATCH (d:Diary {name:"Diary"})
+MATCH (g:Grade {name:"Grade"})
+MATCH d-[l:HAVE_GRADE]->g
+DELETE l
+
+
+
+ добавить связь   дневн имеет оц
+MATCH (g:Grade {name:"Grade"})
+MATCH (d:Diary {name:"Diary"})
+MATCH(n)
+CREATE (d)-[l:HAVE_GRADE]->(g)
+RETURN n
+
+
+ добавить связь  боб имете дневник
+MATCH (st:Student  { name:"Bob" })
+MATCH (d:Diary {name:"Diary"})
+CREATE (st)-[l:HAVE_DIARY]->(d)
+RETURN st, d
+
+
+ добавить связь  боб изучает предмет матема
+MATCH (st:Student  { name:"Bob" })
+MATCH (su:Subject  { name:"Math" })
+CREATE (st)-[l:LEARN_SUBJECT]->(su)
+RETURN st, su
+
+
+

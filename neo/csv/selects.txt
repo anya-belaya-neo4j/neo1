@@ -1,0 +1,19 @@
+              all user one levev
+MATCH (g:Student {level:"1"})->
+return g
+
+         all user one levev
+MATCH (n)
+where n.level ="1"
+return n
+
+
+
+           // запрос для оценок по предмету определеного курса 
+MATCH (g:Student {level:"1"})-[:HAVE_DAYBOOK]->(db:DayBook)-[:ART_GRADE]->(gr:Grade)
+return  gr
+
+ // запрос для оценок по среднему балу предмету определеного курса 
+MATCH (g:Student {level:"1"})-[:HAVE_DAYBOOK]->(db:DayBook)-[:ART_GRADE]->(gr:Grade)
+return  ( sum( gr.value) / count(gr) ) as SREDNIY_BAl
+

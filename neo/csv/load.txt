@@ -1,0 +1,25 @@
+// names
+LOAD CSV WITH HEADERS FROM "file:///names.csv" AS row
+MERGE (m:Student {name:row.name,   level:row.level, room:row.room })
+
+// names MINI!!!!
+LOAD CSV WITH HEADERS FROM "file:///names_mini.csv" AS row
+MERGE (m:Student {name:row.name,   level:row.level, room:row.room })
+
+// names teachers
+LOAD CSV WITH HEADERS FROM "file:///teachers.csv" AS row
+MERGE (m:Teacher {name:row.name})
+
+
+// учебніе предметы
+LOAD CSV WITH HEADERS FROM "file:///subject.csv" AS row
+MERGE (m:Subject {name:row.name})
+
+
+
+--------------------------------------------------
+LOAD CSV WITH HEADERS FROM "demo.csv" AS row
+MERGE (m:Movie {title:row.title}) ON CREATE SET m.released = toInt(row.released), m.tagline = row.tagline
+MERGE (p:Person  {name:row.name}) ON CREATE SET p.born     = toInt(row.born)
+WITH   m,p,row WHERE row.type = "ACTED_IN"
+MERGE (p)-[r:ACTED_IN]->(m) ON CREATE SET r.roles = split(row.roles,";")[0..-1]
